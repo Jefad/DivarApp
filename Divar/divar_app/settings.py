@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     # internal apps
-    'log_reg',
     'estate',
     'users',
 ]
@@ -91,10 +90,10 @@ DATABASES = {
         'PASSWORD': os.environ['DB_PASS'],
         'PORT': os.environ['DB_PORT']
     },
-    # 'test': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 if 'test' in sys.argv:

@@ -8,18 +8,24 @@ class EstateGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estate
         fields = '__all__'
-        write_only_fields = ('id', 'user', 'sold', 'created_at')
+        write_only_fields = ('id', 'user', 'created_at')
+
+
+class EstateCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estate
+        fields = '__all__'
+        read_only_fields = ('user', 'sold', 'created_at', 'updated_at')
+
+
+class EstateListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estate
+        fields = '__all__'
+        required_fields = ['district', 'area', 'floor', 'rooms', 'construction_year']
 
 
 class EstateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estate
-        fields = '__all__'
-
-
-class EstateFilterSerializer(serializers.Serializer):
-    score = serializers.ChoiceField(default=0, choices=((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
-
-
-class EstateCommentSerializer(serializers.Serializer):
-    score = serializers.CharField(default='Your Comment')
+        fields = ['sold', 'updated_at']

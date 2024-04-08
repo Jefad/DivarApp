@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import EstateCreateAPIView, EstateDetailAPIView, EstateUpdateAPIView
+from .views import EstateCreateAPIView, EstateDetailAPIView, EstateListView, EstateUpdateView
 
 
 urlpatterns = [
-    path('', EstateDetailAPIView.as_view(), name='estate-all-view'),
     path('<int:pk>/', EstateDetailAPIView.as_view(), name='estate-detail'),
     path('create/', EstateCreateAPIView.as_view(), name='estate-create'),
-    path('<int:pk>/update/', EstateUpdateAPIView.as_view(), name='estate-update'),
+    path('filter/', EstateListView.as_view(), name='estate-filter'),
+    path('update/<int:pk>/', EstateUpdateView.as_view(), name='estate-update'),
 ]
