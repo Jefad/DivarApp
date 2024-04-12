@@ -10,3 +10,18 @@ services:
       POSTGRES_PASSWORD: jef123
     volumes:
       - ./postgres_data/:/var/lib/postgresql/data
+  divarapp:
+    image: divar_app:1.0
+    container_name: divar
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: localhost
+      DB_NAME: postgres
+      DB_PORT: 5432
+      DB_USER: jefad
+      DB_PASS: jef123
+    volumes:
+      - ./app_data/:/var/lib/divarapp/data
+    depends_on:
+      - postgres
