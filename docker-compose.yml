@@ -1,4 +1,4 @@
-version: '3'
+version: '3.6'
 services:
   postgres:
     image: postgres:16.2
@@ -6,22 +6,24 @@ services:
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_DB: divar_db
       POSTGRES_USER: jefad
       POSTGRES_PASSWORD: jef123
     volumes:
-      - ./postgres_data/:/var/lib/postgresql/data
+      - /home/postgres_data/:/var/lib/postgresql/data
+
   divarapp:
     image: divar_app:1.0
     container_name: divar
     ports:
       - "8000:8000"
     environment:
-      DB_HOST: localhost
-      DB_NAME: postgres
+      DB_HOST: db
+      DB_NAME: divar_db
       DB_PORT: 5432
       DB_USER: jefad
       DB_PASS: jef123
-    volumes:
-      - ./app_data/:/var/lib/divarapp/data
+    command:  >
+      bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - postgres
