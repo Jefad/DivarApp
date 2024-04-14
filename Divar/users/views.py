@@ -13,7 +13,7 @@ from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerial
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegisterSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = (permissions.AllowAny,)
 
     def create(self, request, *args, **kwargs):
@@ -32,13 +32,13 @@ class RegisterView(generics.CreateAPIView):
 
 class LoginView(generics.CreateAPIView):
     serializer_class = UserLoginSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = User.objects.get(username=username, password=password)
 
         if user:
             refresh = RefreshToken.for_user(user=user)
