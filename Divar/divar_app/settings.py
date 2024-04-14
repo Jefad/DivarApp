@@ -133,6 +133,10 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(minutes=720),
 }
 
+# JWT_AUTH = {
+#     'JWT_EXPIRATION_DELTA': timedelta(days=1),
+# }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
